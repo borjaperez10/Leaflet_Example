@@ -1,0 +1,40 @@
+---
+title: "9_Developing_Data_Products_Leaflet"
+author: "Borja Perez"
+date: "8 de junio de 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Instructions 
+Create a web page using R Markdown that features a map created with Leaflet.
+
+Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!
+## Introduction
+
+This document creates a map using Leaflet including the major cities in spain. The 10 major cities are ilustrated. Each one is stored on a circle basing on its population level. It can be seen that Madrid is the city that has most population iN Spain. 
+
+```{r }
+library(leaflet)
+library(dplyr) 
+#Drawing shapes
+md_cities <- data.frame( name = c("Madrid", "Barcelona", "Valencia", "Sevilla",
+                                  "Zaragoza", "Malaga", "Murcia", "Las palmas", "Palma", "Bilbao"), 
+                         pop = c(3167000, 1549400, 750100, 699000, 641500, 
+                                 525900, 408700, 356200, 345700, 343100),
+                         lat = c(	40.420, 41.400, 39.480, 37.400, 41.650,36.720, 37.980, 	28.100, 39.570,43.250),
+                         lng = c(-3.710,2.170, -0.390,-5.980, -0.890,-4.420,-1.130, -15.430, 2.650, -2.930))
+
+```
+##8 de junio de 2019
+```{r}
+md_cities  %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addCircles(weight = 1, radius = sqrt(md_cities$pop)*30)
+```
